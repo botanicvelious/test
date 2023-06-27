@@ -1,0 +1,30 @@
+name: Android Release Build
+
+on:
+  #schedule:
+    # schedule build every night
+    #- cron: "0 0 * * *"
+  workflow_dispatch:
+  #push:
+  #  tags:
+  #    - '*'
+
+env:
+  TAG_NAME: "nightly"
+    
+jobs:
+  build_linux:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        job:
+          - {
+              arch: x86_64,
+              target: aarch64-linux-android,
+              os: ubuntu-22.04,
+              extra-build-features: "",
+            }
+    steps:
+    - name: Build the app
+      run: echo $ANDROID_NDK
